@@ -1,0 +1,13 @@
+[project]
+name = "extract-information-llm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain-anthropic>=1.7.10",
+    "langgraph>=1.2.20",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.2",
+    "python-dotenv>=1.2.4",
+]
