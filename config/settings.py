@@ -1,8 +1,9 @@
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    ANTHROPIC_API_KEY: str
+    ANTHROPIC_API_KEY: SecretStr
     URL_TESSERACT: str = ""
     PORT: int = 8000
 

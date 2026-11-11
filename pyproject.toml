@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.162.2",
     "langchain-anthropic>=1.7.10",
     "langchain-core>=1.7.6",
     "langgraph>=1.2.20",
@@ -13,4 +14,6 @@ dependencies = [
     "pydantic-settings>=2.16.2",
     "pytesseract>=0.3.13",
     "python-dotenv>=1.2.4",
+    "python-multipart>=0.0.33",
+    "uvicorn>=0.54.0",
 ]
