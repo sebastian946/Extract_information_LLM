@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-
+## LLM output format model
 class FormatOutput(BaseModel):
     """Structured information extracted from a document."""
 
@@ -22,3 +22,10 @@ class FormatOutput(BaseModel):
         default_factory=dict,
         description="Other relevant key/value facts found in the document (e.g. 'author': 'Jane Doe').",
     )
+
+## API Models
+
+class DataInput(BaseModel):
+    """Input data for the information extraction process."""
+
+    file_url: str = Field(description="Path to a file on the server (pdf, png or txt).")

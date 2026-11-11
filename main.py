@@ -1,30 +1,26 @@
-import argparse
-from pathlib import Path
+import logging
 
-from llm.graph import graph
+import uvicorn
+from fastapi import FastAPI
+
+from config.settings import settings
+from routes.routes import router
+
+logging.basicConfig(level=logging.INFO)
+
+app = FastAPI(
+    title="Information Extraction API",
+    description="API for extracting structured information from documents.",
+    version="1.0.0",
+)
+
+app.include_router(router)
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Extract structured information from a file.")
-    parser.add_argument("file", help="Path to the file (.pdf, .png or .txt)")
-    args = parser.parse_args()
-
-    path = Path(args.file)
-    if not path.exists():
-        raise SystemExit(f"File not found: {path}")
-
-    result = graph.invoke(
-        {
-            "type_file": path.suffix.lstrip(".").lower(),
-            "file_url": str(path),
-        }
-    )
-
-    print("\n--- Extracted text (first 300 chars) ---")
-    print(result["extracted_text"][:300])
-    print("\n--- Structured output ---")
-    print(result["formatted_output"].model_dump_json(indent=2))
+@app.get("/health", tags=["Health"])
+def health():
+    return {"status": "ok"}
 
 
 if __name__ == "__main__":
-    main()
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=True)
