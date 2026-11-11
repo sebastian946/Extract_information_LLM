@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8002:8002"
+    env_file:
+      - .env
+    environment:
+      # Gana sobre el .env: dentro del contenedor Tesseract está en /usr/bin
+      URL_TESSERACT: /usr/bin/tesseract
+      PORT: 8002
+    volumes:
+      # Solo el código fuente, para recarga en caliente en desarrollo.
+      # No montar ./ completo: taparía el .venv de Linux con el de Windows.
+      - ./main.py:/app/main.py
+      - ./config:/app/config
+      - ./llm:/app/llm
+      - ./models:/app/models
+      - ./routes:/app/routes
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002", "--reload"]
